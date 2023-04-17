@@ -20,12 +20,20 @@ public class Arbol {
 
     //Metodo recursivo para comparar el valor de una key en el arbol con la palabra dada y que devuelva su valor asociado
     private String buscarNodo(ArbolNodo current, String palabra) {
-        return "";
+        if (current == null) {
+            return "";
+        } 
+        if (palabra.equalsIgnoreCase(current.palabra.getLlave())) {
+            return current.palabra.getValor();
+        } 
+        return palabra.compareToIgnoreCase(current.palabra.getLlave()) < 0
+          ? buscarNodo(current.left, palabra)
+          : buscarNodo(current.right, palabra);
     }
-
+    
     //Empieza la recursividad para buscar un elemento en el arbol
     public String empezarb(String palabra) {
-        return "";
+        return buscarNodo(root, palabra);
     }
 }
 

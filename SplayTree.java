@@ -6,18 +6,18 @@ public class SplayTree extends Arbol {
         super(root);
     }
 
-    private ArbolNodo splay(ArbolNodo current, Association<String, String> palabra) {
-        if (current == null || current.palabra.getLlave().compareTo(palabra.getLlave()) == 0) {
+    private ArbolNodo splay(ArbolNodo current, String palabra) {
+        if (current == null || current.palabra.getLlave().compareTo(palabra) == 0) {
             return current;
         }
-        if(current.palabra.getLlave().compareToIgnoreCase(palabra.getLlave()) > 0){
+        if(current.palabra.getLlave().compareToIgnoreCase(palabra) > 0){
             if(current.left == null){
                 return current;
             }
-            if(current.left.palabra.getLlave().compareToIgnoreCase(palabra.getLlave()) > 0){
+            if(current.left.palabra.getLlave().compareToIgnoreCase(palabra) > 0){
                 current.left.left = splay(current.left.left, palabra);
                 current = rotarDerecha(current);
-            } else if(current.left.palabra.getLlave().compareToIgnoreCase(palabra.getLlave()) < 0){
+            } else if(current.left.palabra.getLlave().compareToIgnoreCase(palabra) < 0){
                 current.left.right = splay(current.left.right, palabra);
                 if(current.left.right != null){
                     current.left = rotarIzquierda(current);
@@ -29,12 +29,12 @@ public class SplayTree extends Arbol {
             if(current.right == null){
                 return current;
             }
-            if(current.right.palabra.getLlave().compareToIgnoreCase(palabra.getLlave()) > 0){
+            if(current.right.palabra.getLlave().compareToIgnoreCase(palabra) > 0){
                 current.right.left = splay(current.right.left, palabra);
                 if(current.right.left != null){
                     current.right = rotarDerecha(current.right);
                 }
-            } else if(current.right.palabra.getLlave().compareToIgnoreCase(palabra.getLlave()) < 0){
+            } else if(current.right.palabra.getLlave().compareToIgnoreCase(palabra) < 0){
                 current.right.right = splay(current.right.right, palabra);
                 current = rotarIzquierda(current);
             }
@@ -57,13 +57,13 @@ public class SplayTree extends Arbol {
         return newroot;
     }
 
-    public void insertar(Association<String, String> palabra){
+    public void insert(Association<String, String> palabra){
         if(root == null){
             root = new ArbolNodo(palabra);
             return;
         }
 
-        root = splay(root, palabra);
+        root = splay(root, palabra.getLlave());
 
         if(root.palabra.getLlave().compareToIgnoreCase(palabra.getLlave()) == 0){
             return;
@@ -82,5 +82,10 @@ public class SplayTree extends Arbol {
         }
 
         root = nodo;
+    }
+
+    public String bsplay(String palabra){
+        root = splay(root, palabra);
+        return root.palabra.getValor();
     }
 }

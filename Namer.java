@@ -5,7 +5,6 @@ public class Namer {
 // Declaring the variables that will be used in the program.
     protected String pingles;
     protected String pespanol;
-    protected String pfrances;
 
 /**
  * This function returns the value of the variable pingles
@@ -23,14 +22,5 @@ public class Namer {
  */
     public String getPespanol() {
         return this.pespanol;
-    }
-
-/**
- * It returns the value of the variable pfrances.
- * 
- * @return The value of the variable pfrances.
- */
-    public String getPfrances() {
-        return this.pfrances;
     }
 }

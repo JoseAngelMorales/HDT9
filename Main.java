@@ -11,12 +11,13 @@ public class Main {
         Association<String, String> palabra = new Association<String,String>(null, null);
         Factory factory = new Factory();
         Scanner teclado = new Scanner(System.in);
-        Arbol arbolie = new ArbolBinario(null);
+        ArbolT tipo = new ArbolT();
 
         // Crear un nuevo arbol basado en el input del usuario
+        int tipomapa = 0;
         String menu = "Bienvenido al programa, elija la opcion de implementacion\n1. BinaryTree\n2. SplayTree\n3. RBTree";
         System.out.println(menu);
-        int tipomapa = teclado.nextInt();
+        tipomapa = teclado.nextInt();
         teclado.nextLine();
         while(tipomapa < 1 || tipomapa > 3){
             System.out.println(menu);
@@ -24,8 +25,10 @@ public class Main {
             teclado.nextLine();
         }
 
+        Arbol arbolie = tipo.newArbol(tipomapa);
+
         try{
-            BufferedReader reader = new BufferedReader(new FileReader("diccionario.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("Spanish.txt"));
             String linea = reader.readLine();
             while(linea != null){
                 Namer namer = factory.getNamer(linea);
