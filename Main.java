@@ -11,7 +11,18 @@ public class Main {
         Association<String, String> palabra = new Association<String,String>(null, null);
         Factory factory = new Factory();
         Scanner teclado = new Scanner(System.in);
-        Arbol arbolie = new Arbol();
+        Arbol arbolie = new ArbolBinario(null);
+
+        // Crear un nuevo arbol basado en el input del usuario
+        String menu = "Bienvenido al programa, elija la opcion de implementacion\n1. BinaryTree\n2. SplayTree\n3. RBTree";
+        System.out.println(menu);
+        int tipomapa = teclado.nextInt();
+        teclado.nextLine();
+        while(tipomapa < 1 || tipomapa > 3){
+            System.out.println(menu);
+            tipomapa = teclado.nextInt();
+            teclado.nextLine();
+        }
 
         try{
             BufferedReader reader = new BufferedReader(new FileReader("diccionario.txt"));
@@ -30,7 +41,7 @@ public class Main {
             System.out.println("No se ha encontrado la direccion del archivo.");
         }
 
-        String menu = "\nBienvenido al traductor, elija una de las opciones:\n1. Traducir del ingles\n2. Traducir un archivo .txt\n3. Cerrar el programa";
+        menu = "\nBienvenido al traductor, elija una de las opciones:\n1. Traducir del ingles\n2. Traducir un archivo .txt\n3. Cerrar el programa";
         int opcion = 0;
         while(opcion < 1 || opcion > 3){
             System.out.println(menu);
