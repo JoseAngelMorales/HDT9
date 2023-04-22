@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -12,6 +13,7 @@ public class Main {
         Factory factory = new Factory();
         Scanner teclado = new Scanner(System.in);
         ArbolT tipo = new ArbolT();
+        ArrayList<Association<String, String>> traducciones = new ArrayList<>(null);
 
         // Crear un nuevo arbol basado en el input del usuario
         int tipomapa = 0;
@@ -35,13 +37,35 @@ public class Main {
                 //Arbol Ingles-Espanol
                 palabra.setLlave(namer.getPingles());
                 palabra.setValor(namer.getPespanol());
-                arbolie.empezar(palabra);
+                traducciones.add(palabra);
+                //((SplayTree) arbolie).insert(palabra);
                 palabra = new Association<String,String>(null, null);
 
                 linea = reader.readLine();
             }
         } catch (IOException e) {
             System.out.println("No se ha encontrado la direccion del archivo.");
+        }
+
+        switch(tipomapa){
+            case 1:{
+                for(Association<String, String> tr : traducciones){
+                    arbolie.empezar(tr);
+                }
+                break;
+            }
+            case 2:{
+                for(Association<String, String> tr : traducciones){
+                    ((SplayTree) arbolie).insert(tr);
+                }
+                break;
+            }
+            case 3:{
+                for(Association<String, String> tr : traducciones){
+                    
+                }
+                break;
+            }
         }
 
         menu = "\nBienvenido al traductor, elija una de las opciones:\n1. Traducir del ingles\n2. Traducir un archivo .txt\n3. Cerrar el programa";
@@ -70,12 +94,31 @@ public class Main {
                             i = oracion.indexOf(" ");
                             String p = oracion.substring(0, i);
                             //Si la palabra no esta en el arbol devuelve "" y agrega la palabra entre ** a la traduccion.
-                            if(arbolie.empezarb(p) == ""){
-                                traduccion = traduccion + "*" + p + "* ";
-                            }
-                            //Si la palabra si esta agrega el valor de la llave a la traduccion
-                            else {
-                                traduccion = traduccion + arbolie.empezarb(p) + " ";
+                            switch(tipomapa){
+                                case 1:{
+                                    if(arbolie.empezarb(p) == ""){
+                                        traduccion = traduccion + "*" + p + "* ";
+                                    }
+                                    //Si la palabra si esta agrega el valor de la llave a la traduccion
+                                    else {
+                                        traduccion = traduccion + arbolie.empezarb(p) + " ";
+                                    }
+                                    break;
+                                }
+                                case 2:{
+                                    if(((SplayTree) arbolie).bsplay(p) == ""){
+                                        traduccion = traduccion + "*" + p + "* ";
+                                    }
+                                    //Si la palabra si esta agrega el valor de la llave a la traduccion
+                                    else {
+                                        traduccion = traduccion + ((SplayTree) arbolie).bsplay(p) + " ";
+                                    }
+                                    break;
+                                }
+                                case 3:{
+
+                                    break;
+                                }
                             }
                             oracion = oracion.replaceFirst(oracion.substring(0, i+1), "");
                         }
@@ -113,12 +156,31 @@ public class Main {
                                     i = oracion.indexOf(" ");
                                     String p = oracion.substring(0, i);
                                     //Si la palabra no esta en el arbol devuelve "" y agrega la palabra entre ** a la traduccion.
-                                    if(arbolie.empezarb(p) == ""){
-                                        traduccion = traduccion + "*" + p + "* ";
-                                    }
-                                    //Si la palabra si esta agrega el valor de la llave a la traduccion
-                                    else {
-                                        traduccion = traduccion + arbolie.empezarb(p) + " ";
+                                    switch(tipomapa){
+                                        case 1:{
+                                            if(arbolie.empezarb(p) == ""){
+                                                traduccion = traduccion + "*" + p + "* ";
+                                            }
+                                            //Si la palabra si esta agrega el valor de la llave a la traduccion
+                                            else {
+                                                traduccion = traduccion + arbolie.empezarb(p) + " ";
+                                            }
+                                            break;
+                                        }
+                                        case 2:{
+                                            if(((SplayTree) arbolie).bsplay(p) == ""){
+                                                traduccion = traduccion + "*" + p + "* ";
+                                            }
+                                            //Si la palabra si esta agrega el valor de la llave a la traduccion
+                                            else {
+                                                traduccion = traduccion + ((SplayTree) arbolie).bsplay(p) + " ";
+                                            }
+                                            break;
+                                        }
+                                        case 3:{
+        
+                                            break;
+                                        }
                                     }
                                     oracion = oracion.replaceFirst(oracion.substring(0, i+1), "");
                                 }

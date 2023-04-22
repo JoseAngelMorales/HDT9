@@ -1,6 +1,8 @@
 package HDT9;
 
-public class SplayTree extends Arbol {
+import java.util.Comparator;
+
+public class SplayTree extends Arbol { 
 
     public SplayTree(ArbolNodo root){
         super(root);
@@ -10,17 +12,17 @@ public class SplayTree extends Arbol {
         if (current == null || current.palabra.getLlave().compareTo(palabra) == 0) {
             return current;
         }
-        if(current.palabra.getLlave().compareToIgnoreCase(palabra) > 0){
+        if(current.palabra.getLlave().compareToIgnoreCase(palabra) < 0){
             if(current.left == null){
                 return current;
             }
-            if(current.left.palabra.getLlave().compareToIgnoreCase(palabra) > 0){
+            if(current.left.palabra.getLlave().compareToIgnoreCase(palabra) < 0){
                 current.left.left = splay(current.left.left, palabra);
                 current = rotarDerecha(current);
-            } else if(current.left.palabra.getLlave().compareToIgnoreCase(palabra) < 0){
+            } else if(current.left.palabra.getLlave().compareToIgnoreCase(palabra) > 0){
                 current.left.right = splay(current.left.right, palabra);
                 if(current.left.right != null){
-                    current.left = rotarIzquierda(current);
+                    current.left = rotarIzquierda(current.left);
                 }
             }
 
@@ -29,12 +31,12 @@ public class SplayTree extends Arbol {
             if(current.right == null){
                 return current;
             }
-            if(current.right.palabra.getLlave().compareToIgnoreCase(palabra) > 0){
+            if(current.right.palabra.getLlave().compareToIgnoreCase(palabra) < 0){
                 current.right.left = splay(current.right.left, palabra);
                 if(current.right.left != null){
                     current.right = rotarDerecha(current.right);
                 }
-            } else if(current.right.palabra.getLlave().compareToIgnoreCase(palabra) < 0){
+            } else if(current.right.palabra.getLlave().compareToIgnoreCase(palabra) > 0){
                 current.right.right = splay(current.right.right, palabra);
                 current = rotarIzquierda(current);
             }
